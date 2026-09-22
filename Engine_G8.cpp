@@ -111,7 +111,7 @@ int main()
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
     // Create OpenGL window using SDL
-    SDL_Window* window = SDL_CreateWindow("EnginishGL",
+    SDL_Window* window = SDL_CreateWindow("Cool Engine",
         SCREEN_WIDTH, SCREEN_HEIGHT,
         SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE
     );
@@ -400,6 +400,47 @@ int main()
         ImGui_ImplSDL3_NewFrame();
         ImGui::NewFrame();
 
+       // Header
+        if (ImGui::BeginMainMenuBar())
+        {
+            if (ImGui::BeginMenu("File"))
+            {
+                //Exit: Exits the Engine
+
+                if (ImGui::MenuItem("Exit")) {
+                    isRunning = false;
+                }
+                ImGui::EndMenu();
+            }
+            if (ImGui::BeginMenu("View"))
+            {
+                // Show/Hide available windows in the engine
+                ImGui::EndMenu();
+            }
+            if (ImGui::BeginMenu("Help")) {
+
+                /*
+                    ○ Github Documentation : [Link to repo] / docs
+                    ○ Report a Bug : [Link to repo] / issues
+                    ○ Download Latest : [Link to repo / releases]
+                    ○ About : Shows window with the name of the engine + version +
+                    members of the team + libraries used + MIT License.
+                    
+                */
+
+                if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
+                if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {} // Disabled item
+                ImGui::Separator();
+                if (ImGui::MenuItem("Cut", "CTRL+X")) {}
+                if (ImGui::MenuItem("Copy", "CTRL+C")) {}
+                if (ImGui::MenuItem("Paste", "CTRL+V")) {}
+
+                ImGui::EndMenu();
+            }
+            ImGui::EndMainMenuBar();
+        }
+       
+
         ImGui::DockSpaceOverViewport(); //DockSpaceOverViewPort: This is for Stick Windows into each other
 
         ImGuizmo::BeginFrame();
@@ -456,4 +497,3 @@ int main()
 
     return 0;
 }
-//little test
