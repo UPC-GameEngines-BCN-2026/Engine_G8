@@ -146,6 +146,7 @@ int main()
     ImGuiIO& io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
 
     // Setup Platform/Renderer backends
     ImGui_ImplSDL3_InitForOpenGL(window, glContext);
@@ -398,6 +399,9 @@ int main()
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplSDL3_NewFrame();
         ImGui::NewFrame();
+
+        ImGui::DockSpaceOverViewport(); //DockSpaceOverViewPort: This is for Stick Windows into each other
+
         ImGuizmo::BeginFrame();
 
         const bool gizmoActive = ImGuizmo::IsOver() || ImGuizmo::IsUsing();
