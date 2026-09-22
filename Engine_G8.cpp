@@ -136,7 +136,7 @@ int main()
 
     // Init all OpenGL function pointers at runtime (not linked at compile time)
     gladLoadGL();
-
+    
     // Used for mapping NDC coordinates (-1.0f to 1.0f) to pixel coordinates (e.g. 1920x1080)
     glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 

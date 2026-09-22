@@ -19,6 +19,16 @@ find_package(imguizmo CONFIG REQUIRED)
 # Add source to this project's executable.
 add_executable (${PROJECT_NAME} Engine_G8.cpp)
 
+
+
+if(MSVC)
+    target_compile_options(${PROJECT_NAME} PRIVATE
+        /GR-      # Disable RTTI
+        /EHs-c-   # Disable C++ exceptions
+    )
+endif()
+
+
 target_link_libraries(${PROJECT_NAME} PRIVATE glm::glm)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
 
