@@ -1,5 +1,5 @@
 ﻿#include <iostream>
-
+#include <vector>
 // OpenGL
 #include <glad/glad.h>
 #include <SDL3/SDL.h>
@@ -440,6 +440,65 @@ int main()
             ImGui::EndMainMenuBar();
         }
        
+        //Configuration Window
+
+        //max FPS
+        static int maxFPS = 0;
+        //Engine name
+        static char Appname[16] = {};
+        static char Orgname[16] = {};
+
+        if (ImGui::Begin("Configuration Window")) {
+            if (ImGui::CollapsingHeader("Application")) {
+                    
+                ImGui::InputText("App Name", &Appname[0], IM_ARRAYSIZE(Appname));
+                ImGui::InputText("Organization", &Orgname[0], IM_ARRAYSIZE(Orgname));
+                ImGui::SliderInt("Max FPS", &maxFPS, 0, 120);
+                
+                //Framerate
+                float fps = ImGui::GetIO().Framerate;
+                static std::vector <float> fps_log;
+                fps_log.push_back(fps);
+
+                // Delta time
+                float ms = ImGui::GetIO().DeltaTime * 1000.0f;
+                static std::vector <float> ms_log;
+                ms_log.push_back(ms);
+
+
+                const int max_fps_display = 64;
+
+                if (fps_log.size() > max_fps_display) {
+                    fps_log.erase(fps_log.begin());
+                }
+                if (ms_log.size() > max_fps_display) {
+                    ms_log.erase(ms_log.begin());
+                }
+                
+                char title[25];
+                sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);
+                ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+                sprintf_s(title, 25, "Milliseconds %.1f", ms_log[ms_log.size() - 1]);
+                ImGui::PlotHistogram("##milliseconds", &ms_log[0], ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));
+
+
+            }
+            if (ImGui::CollapsingHeader("Window")) {
+                
+            }
+            if (ImGui::CollapsingHeader("Hardware Info")) {
+                
+            }
+            ImGui::End();
+        }
+
+        //Console Window
+        if (ImGui::Begin("Console Window")) {
+
+            ImGui::End();
+        }
+
+
 
         ImGui::DockSpaceOverViewport(); //DockSpaceOverViewPort: This is for Stick Windows into each other
 
